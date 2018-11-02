@@ -17,4 +17,4 @@ install:
   - ccache -s
 
 script:
-  - echo "run the tests!"
+  - ./run-tests.sh
