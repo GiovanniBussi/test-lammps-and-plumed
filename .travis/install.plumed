@@ -18,6 +18,6 @@ fi
 
 git checkout $version
 
-./configure --prefix=$HOME/opt/bin
+./configure --prefix=$HOME/opt
 make -j 5
 make install
