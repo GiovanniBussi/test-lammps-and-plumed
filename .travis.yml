@@ -13,7 +13,7 @@ install:
   - export PATH=/usr/lib/ccache:${PATH}
   - ccache -s
   - CXX="mpic++" .travis/install.plumed version=master
-  - .travis/install.lammps
+  - .travis/install.lammps version=pablo-fix
   - ccache -s
 
 script:
