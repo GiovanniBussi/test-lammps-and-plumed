@@ -6,4 +6,7 @@ language: cpp
 install:
   - sudo apt update
   - sudo apt install mpi-default-bin mpi-default-dev
+  - export PATH="$HOME/opt/bin:$PATH"
+  - export LD_LIBRARY_PATH="$HOME/opt/lib:$LD_LIBRARY_PATH"
+  - .travis/install.plumed
   - .travis/install.lammps
