@@ -1,0 +1,24 @@
+#! /bin/bash
+
+set -e
+set -x
+
+cd "$(mktemp -dt test.XXXXXX)"
+
+git clone git://github.com/lammps/lammps.git
+cd lammps
+
+if [ -n "$1" ] ; then
+  echo "installing lammps $version"
+  version=$1
+else
+  echo "installing latest lammps"
+  version=$(git tag | tail -n 1)
+fi
+
+git checkout $version
+
+cd src
+make -j 5 ubuntu_simple
+cp ./lmp_ubuntu_simple $HOME/opt/bin/lammps
+
