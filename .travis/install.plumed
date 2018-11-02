@@ -1,0 +1,23 @@
+#! /bin/bash
+
+set -e
+set -x
+
+cd "$(mktemp -dt plumed.XXXXXX)"
+
+git clone https://github.com/plumed/plumed2.git
+cd plumed2
+
+if [ -n "$1" ] ; then
+  echo "installing plumed $version"
+  version=$1
+else
+  echo "installing latest stable plumed"
+  version=$(git tag --sort=-creatordate | grep '^v2\.[0-9][0-9]*\.[0-9][0-9]*' | head -n 1 )
+fi
+
+git checkout $version
+
+./configure --prefix=$HOME/opt
+make -j 5
+make install

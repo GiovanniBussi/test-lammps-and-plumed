@@ -1,0 +1,49 @@
+#! /bin/bash
+
+
+version=""
+
+for opt
+do
+case "$opt" in
+  (version=*) version="${opt#version=}" ;;
+  (patch=*) patch="${opt#patch=}" ;;
+  (*) echo "unknown option $opt" ; exit 1 ;;
+esac
+
+done
+
+set -e
+set -x
+
+cd "$(mktemp -dt lammps.XXXXXX)"
+
+git clone git://github.com/lammps/lammps.git
+cd lammps
+
+if [ -n "$version" ] ; then
+  echo "installing lammps $version"
+else
+  version=$(git tag --sort=-creatordate | grep stable | head -n 1)
+  echo "installing latest stable lammps $version"
+fi
+
+if [ -n "$patch" ] ; then
+  echo "patching using plumed patch $patch"
+else
+  patch="$(plumed patch -l | grep lammps)"
+  echo "patching using plumed patch $patch"
+fi
+
+git checkout $version
+
+plumed patch -p -e $patch
+
+cd src
+make yes-kspace
+make yes-molecule
+make yes-rigid
+make yes-user-plumed
+make -j 5 ubuntu_simple
+cp ./lmp_ubuntu_simple $HOME/opt/bin/lammps
+
