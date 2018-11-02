@@ -12,9 +12,10 @@ install:
   - sudo ln -s ccache /usr/local/bin/mpic++
   - export PATH=/usr/lib/ccache:${PATH}
   - ccache -s
-  - CXX="mpic++" .travis/install.plumed
+  - CXX="mpic++" .travis/install.plumed version=master
   - .travis/install.lammps
   - ccache -s
 
 script:
   - ./run-tests.sh
+# should add something that makes the script fail when there are errors
