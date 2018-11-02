@@ -3,7 +3,7 @@
 set -e
 set -x
 
-cd "$(mktemp -dt test.XXXXXX)"
+cd "$(mktemp -dt lammps.XXXXXX)"
 
 git clone git://github.com/lammps/lammps.git
 cd lammps
@@ -12,13 +12,16 @@ if [ -n "$1" ] ; then
   echo "installing lammps $version"
   version=$1
 else
-  echo "installing latest lammps"
-  version=$(git tag | tail -n 1)
+  echo "installing latest stable lammps"
+  version=$(git tag --sort=-creatordate | grep stable)
 fi
 
 git checkout $version
 
 cd src
+make yes-kspace
+make yes-molecule
+make yes-rigid
 make -j 5 ubuntu_simple
 cp ./lmp_ubuntu_simple $HOME/opt/bin/lammps
 
