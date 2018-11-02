@@ -15,3 +15,6 @@ install:
   - CXX="mpic++" .travis/install.plumed
   - .travis/install.lammps
   - ccache -s
+
+script:
+  - echo "run the tests!"
