@@ -12,8 +12,8 @@ install:
   - sudo ln -s ccache /usr/local/bin/mpic++
   - export PATH=/usr/lib/ccache:${PATH}
   - ccache -s
-  - CXX="mpic++" .travis/install.plumed version=master
-  - .travis/install.lammps version=pablo-fix
+  - CXX="mpic++" .travis/install.plumed
+  - .travis/install.lammps version=pablo-fix repo=https://github.com/gtribello/lammps.git patch=no
   - ccache -s
 
 script:
