@@ -9,6 +9,7 @@ case "$opt" in
   (version=*) version="${opt#version=}" ;;
   (*) echo "unknown option $opt" ; exit 1 ;;
 esac
+done
 
 cd "$(mktemp -dt plumed.XXXXXX)"
 
