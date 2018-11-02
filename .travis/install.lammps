@@ -13,7 +13,7 @@ if [ -n "$1" ] ; then
   version=$1
 else
   echo "installing latest stable lammps"
-  version=$(git tag --sort=-creatordate | grep stable)
+  version=$(git tag --sort=-creatordate | grep stable | head -n 1)
 fi
 
 git checkout $version
