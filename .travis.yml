@@ -14,3 +14,4 @@ install:
   - ccache -s
   - CXX="mpic++" .travis/install.plumed
   - .travis/install.lammps
+  - ccache -s
