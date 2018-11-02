@@ -3,9 +3,9 @@
 set -e
 set -x
 
-cd "$(mktemp -dt lammps.XXXXXX)"
+cd "$(mktemp -dt plumed.XXXXXX)"
 
-git clone git://https://github.com/plumed/plumed2
+git clone https://github.com/plumed/plumed2.git
 cd plumed2
 
 if [ -n "$1" ] ; then
